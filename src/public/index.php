@@ -3,6 +3,12 @@
 session_start();
 
 
+// vérification si l'utilisateur est connecté
+if(! isset($_SESSION["userId"])){
+    header("location:login.php");
+    exit;
+}
+
 /*
 * Connexion à la base de données
 * depuis un fichier externe pour partager les infos de connexion

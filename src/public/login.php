@@ -43,6 +43,7 @@ if($isPosted){
                 $_SESSION["userId"] = $data["id"];
                 // Redirection vers la page d'accueil lorsque on et authentifié
                 header("location:index.php");
+                exit;
             } else {
                 echo "infos de connexion invalide";
             }
