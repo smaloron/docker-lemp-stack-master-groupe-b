@@ -15,31 +15,15 @@ require("../model/task-model.php");
 // Récupération d'une instance de PDO
 $pdo = getPDO();
 
+// Traitement du formulaire pour l'insertion de tâche
+handleTaskInsert($pdo);
+
 // Récupération de toutes les tâches
 $data = getAllTasks($pdo);
 
-// Traitement du formulaire
 
-// on test si le formulaire a été posté
-$isPosted = filter_has_var(INPUT_POST, "newTask");
-if($isPosted){
-    // Récupération et validation de la saisie
-    $taskName = filter_input(INPUT_POST, "taskName");
-    //var_dump($taskName);
-    if(! empty($taskName)){
-        // Enregistrement de la saisie dans la base de données
-        $sql = "INSERT INTO tasks (task_name) VALUES (?)";
-        $query = $pdo->prepare($sql);
-        $query->execute([$taskName]);
-        // Redirection vers la page index pour ne plus poster les données
-        header("location:index.php");
-        exit;
-    } else {
-        // Affichage d'une erreur en cas de mauvaise saisie
-        echo "Vous devez saisir un tâche";
-    }
 
-}
+
 
 
 
