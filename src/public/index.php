@@ -7,11 +7,13 @@ session_start();
 * Connexion à la base de données
 * depuis un fichier externe pour partager les infos de connexion
 */
-require("include_database.php");
+require("../model/database.php");
 
 // Inclusion des fonction de traitement des tâches
 require("../model/task-model.php");
 
+// Récupération d'une instance de PDO
+$pdo = getPDO();
 
 // Récupération de toutes les tâches
 $data = getAllTasks($pdo);
