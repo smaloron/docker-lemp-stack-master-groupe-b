@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spaceship</title>
+    <style>
+        #spaceship {
+            width: 15%;
+            position: absolute;
+            left:0;
+            top:0;
+        }
+    </style>
+
+    <script>
+
+        window.onload = function(){
+
+            const spaceship = {
+                x: 100,
+                y: 100,
+                rotation: 0,
+                target: document.getElementById("spaceship"),
+
+                show: function(){
+                    this.target.style.left = this.x+"px";
+                    this.target.style.top = this.y+"px";
+                    this.target.style.transform = "rotate(" + this.rotation +"deg)";
+                },
+
+                move: function(speed = 5){
+                    let rad = this.rotation * Math.PI /180;
+                    this.x += Math.cos(rad) * speed;
+                    this.y += Math.sin(rad) * speed;
+                }
+            };
+
+
+            spaceship.show();
+
+            // Evenement de clavier
+            window.onkeydown = function(ev){
+                if(ev.key == "ArrowUp"){
+                    spaceship.rotation += 5;
+                }
+                if(ev.key == "ArrowDown"){
+                    spaceship.rotation -= 5;
+                }
+
+                if(ev.key == " "){
+                    spaceship.move();
+                }
+                // mise à jour de l'affichage du vaisseau
+                spaceship.show();
+            }
+        }
+
+        
+
+    </script>
+</head>
+<body>
+
+    <img src="img/spaceship.png" id="spaceship">
+    
+</body>
+</html>
