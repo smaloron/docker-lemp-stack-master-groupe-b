@@ -10,7 +10,8 @@
 */
 function getAllTasks(PDO $pdo): array{
     // Exécution d'une requête SQL
-    $query = $pdo->query("SELECT * FROM tasks");
+    $query = $pdo->prepare("SELECT * FROM tasks WHERE user_id=?");
+    $query->execute([$_SESSION["userId"]]);
     // Extraction des données depuis la requête
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -25,9 +26,9 @@ function handleTaskInsert(PDO $pdo){
         //var_dump($taskName);
         if(! empty($taskName)){
             // Enregistrement de la saisie dans la base de données
-            $sql = "INSERT INTO tasks (task_name) VALUES (?)";
+            $sql = "INSERT INTO tasks (task_name, user_id) VALUES (?, ?)";
             $query = $pdo->prepare($sql);
-            $query->execute([$taskName]);
+            $query->execute([$taskName, $_SESSION["userId"]]);
             // Redirection vers la page index pour ne plus poster les données
             header("location:index.php");
             exit;
