@@ -35,6 +35,26 @@ $data = getAllTasks($pdo);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo List</title>
+
+    <script>
+        // Attend le chargement de la page
+        window.onload = function(){
+            // Sélection de toutes les cases à cocher
+            const checkboxes = document.querySelectorAll(".task input");
+            for(let item of checkboxes){
+                item.addEventListener("change", function(ev){
+                    // Définition de l'url pour la modification
+                    let url = "update-task-status.php";
+                    url += "?id=" + ev.target.value;
+                    url += "&done=" + ev.target.checked;
+                    // Envoi de la requête
+                    fetch(url)
+                        .then( res => res.text().then(text=> console.log(text)))
+                        .catch( err => alert('Impossible de réaliser cette opération'));
+                });
+            }
+        };
+    </script>
 </head>
 <body>
 
@@ -65,9 +85,16 @@ $data = getAllTasks($pdo);
 
     <!-- Boucle sur le résultat de la requête pour afficher la liste des tâches -->
     <?php foreach($data as $line): ?>
-        <div style="color:<?= $line["done"] == 1 ? "green": "red" ?>">
+        <div class="task" style="color:<?= $line["done"] == 1 ? "green": "red" ?>">
+            <input 
+                type="checkbox" 
+                <?= $line["done"]==1?"checked":""  ?>
+                value="<?= $line["id"] ?>"
+            >
             <?php echo $line["task_name"] ?>
+            
         </div>
+        
 
     <?php endforeach ?>
 
