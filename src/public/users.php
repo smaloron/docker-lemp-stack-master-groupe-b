@@ -3,7 +3,8 @@
 * Connexion à la base de données
 * depuis un fichier externe pour partager les infos de connexion
 */
-require("include_database.php");
+require("../model/database.php");
+$pdo = getPDO();
 
 
 // Traitement du formulaire
