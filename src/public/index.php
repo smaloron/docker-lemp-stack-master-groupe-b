@@ -21,13 +21,6 @@ handleTaskInsert($pdo);
 // Récupération de toutes les tâches
 $data = getAllTasks($pdo);
 
-
-
-
-
-
-
-
 ?>
 
 <!DOCTYPE html>
