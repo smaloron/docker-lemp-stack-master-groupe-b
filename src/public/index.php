@@ -9,6 +9,12 @@ session_start();
 */
 require("include_database.php");
 
+// Inclusion des fonction de traitement des tâches
+require("../model/task-model.php");
+
+
+// Récupération de toutes les tâches
+$data = getAllTasks($pdo);
 
 // Traitement du formulaire
 
@@ -33,12 +39,6 @@ if($isPosted){
 
 }
 
-// Exécution d'une requête SQL
-$query = $pdo->query("SELECT * FROM tasks");
-// Extraction des données depuis la requête
-$data = $query->fetchAll();
-// Affichage des données pour test
-//var_dump($data);
 
 
 
